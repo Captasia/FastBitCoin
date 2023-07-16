@@ -24,7 +24,8 @@ export default function Email({ navigation }) {
 
   // TODO: remove return true
   function isValidEmail(email) {
-    const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regex.test(email);
   }
 
@@ -34,7 +35,7 @@ export default function Email({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      style={{ ...styles.container, ...styles.split }}
+      style={{ ...styles.container, ...styles.split}}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={70}
     >
@@ -46,13 +47,14 @@ export default function Email({ navigation }) {
           onChangeText={validateEmail}
         />
       </UserInput>
-      <View style={{...styles.componentHolder, ...styles.bottomAlign}}>
+      <View style={{ ...styles.componentHolder, ...styles.bottomAlign }}>
         <Button
           style={styles.button}
           isActive={email.isValid}
           onPress={() => {
             dispatch(updateEmail(email.email));
-            navigation.navigate("Your new account")}}
+            navigation.navigate("Your new account");
+          }}
           text={"Continue"}
         />
       </View>
