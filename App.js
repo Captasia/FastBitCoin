@@ -1,9 +1,6 @@
 // import basic functions related to react / react-native.
 import React, { useCallback, useEffect, useState } from "react";
-import { SafeAreaView } from "react-native";
-
-// import splash screen from expo
-import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaView, StatusBar } from "react-native";
 
 // import redux
 import { Provider } from "react-redux";
@@ -21,6 +18,7 @@ import { I18nextProvider } from "react-i18next";
 // i18n imports for translation
 import enTranslations from "./src/locales/en.json"; // English translations
 import krTranslations from "./src/locales/kr.json"; // Korean translations
+import CustomSplashScreen from "./src/components/CustomSplashScreen.js";
 
 // setting urql client
 const API_URL =
@@ -29,9 +27,6 @@ const client = new ApolloClient({
   uri: API_URL,
   cache: new InMemoryCache(),
 });
-
-// stop SplashScreen from hiding
-SplashScreen.preventAutoHideAsync();
 
 // Initialize i18next with translations and configuration
 i18next.use(initReactI18next).init({
@@ -56,7 +51,7 @@ i18next.use(initReactI18next).init({
 export default function App() {
   const [appReady, setAppReady] = useState(false);
   // TODO: change LOAD_DELAY if we want to animate loading screen.
-  const LOAD_DELAY = 0;
+  const LOAD_DELAY = 10000;
 
   // run any preparation required for launching app
   useEffect(() => {
@@ -65,9 +60,8 @@ export default function App() {
       try {
         // Any API calls, or loading for initiation should be done here.
         await new Promise((resolve) => setTimeout(resolve, LOAD_DELAY));
-      } catch (e) {
-        console.log("There has been an error:");
-        console.log(e);
+      } catch (err) {
+        console.log("There has been an error:", err);
       } finally {
         // app is ready to go
         setAppReady(true);
@@ -76,24 +70,18 @@ export default function App() {
     prepareApp();
   }, []);
 
-  const onLayoutRootView = useCallback(async () => {
-    console.log("running onLayoutRootView...", appReady);
-    if (appReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appReady]);
-
   if (!appReady) {
-    return null;
+    return <CustomSplashScreen />
   }
 
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
         <I18nextProvider i18n={i18next}>
-          <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
-            <Navigation />
-          </SafeAreaView>
+          {/* <StatusBar backgroundColor="blue" barStyle="light-content"/> */}
+          {/* <SafeAreaView style={{ flex: 1 }}> */}
+            <Navigation /> 
+          {/* </SafeAreaView> */}
         </I18nextProvider>
       </Provider>
     </ApolloProvider>

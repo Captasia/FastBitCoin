@@ -1,11 +1,9 @@
-// List.js
 import React from "react";
 import {
   View,
   FlatList,
   StyleSheet,
   Text,
-  TouchableHighlight,
   Image,
   TouchableOpacity,
 } from "react-native";
@@ -23,7 +21,6 @@ const ListItem = ({ item, onPress }) => (
         source={{
           uri: item.imageLink,
         }}
-        resizeMode={"stretch"}
         height={60}
         width={60}
       />
@@ -67,12 +64,13 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#DDD",
+    borderBottomColor: "#E7E8E9",
   },
   roundImg: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#DDD",
+    backgroundColor: "white",
+    marginRight: 10,
   },
 });

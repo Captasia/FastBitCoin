@@ -21,6 +21,7 @@ const SelectionButton = ({ onPress, selectedItem, children }) => {
         borderColor: "#DDD",
         justifyContent: "space-between",
         flexDirection: "row",
+        alignItems: "center"
       }}
       onPress={onPress}
     >
@@ -31,22 +32,25 @@ const SelectionButton = ({ onPress, selectedItem, children }) => {
             source={{
               uri: selectedItem.imageLink,
             }}
-              resizeMode={"stretch"}
+            resizeMode={"stretch"}
             height={30}
             width={30}
           />
         )}
-        <Text style={{ ...styles.baseFont, color: "#AAA" }}>{selectedItem.name}</Text>
+        <Text style={{ ...styles.baseFont, color: "#AAA" }}>
+          {selectedItem.name}
+        </Text>
         {children}
       </View>
-      <Image
-        style={{ backgroundColor: "orange" }}
-        source={{
-          // TODO: need an image
-          uri: null,
+      <View
+        style={{
+          ...styles.centerAlign,
+          width: 30,
+          height: 30,
         }}
-        width={30}
-      />
+      >
+        <Image source={require("../../assets/rightArrow.png")} width={30} />
+      </View>
     </TouchableOpacity>
   );
 };

@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import { StyleSheet, TextInput, View, Keyboard, Text } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 
+import styles from "../style/styles";
+
 const SearchBar = ({ searchPhrase, onSearchPhraseChange }) => {
   const [clicked, setClicked] = useState(false);
   return (
-    <View style={styles.container}>
+    <View style={styles.searchBar__container}>
       <View
         style={
-          clicked ? styles.searchBar__clicked : styles.searchBar__unclicked
+          styles.searchBar
         }
       >
         {/* search Icon */}
@@ -21,8 +23,9 @@ const SearchBar = ({ searchPhrase, onSearchPhraseChange }) => {
         />
         {/* Input field */}
         <TextInput
-          style={styles.input}
+          style={styles.searchBar__input}
           placeholder="Search"
+          placeholderTextColor={"#707070"}
           value={searchPhrase}
           onChangeText={onSearchPhraseChange}
           onFocus={() => {
@@ -50,35 +53,3 @@ const SearchBar = ({ searchPhrase, onSearchPhraseChange }) => {
   );
 };
 export default SearchBar;
-
-// styles
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    backgroundColor: "white",
-    marginHorizontal: 20,
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-  searchBar__unclicked: {
-    padding: 10,
-    flexDirection: "row",
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  searchBar__clicked: {
-    padding: 10,
-    flexDirection: "row",
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  input: {
-    fontSize: 20,
-    marginLeft: 10,
-    width: "80%",
-  },
-});

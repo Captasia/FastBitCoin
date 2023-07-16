@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, View, Dimensions, Text } from "react-native";
 import {
   GestureDetector,
@@ -6,40 +6,6 @@ import {
   Directions,
 } from "react-native-gesture-handler";
 import styles from "../style/styles.js";
-import SearchBar from "./SearchBar.js";
-import List from "./List.js";
-import SearchableList from "./SearchableList.js";
-
-// Temporary built data
-// TODO: refine + MAYBE fetch this from external API
-const COUNTRY_DATA = [
-  {
-    id: "ct-1",
-    title: "US",
-  },
-  {
-    id: "ct-2",
-    title: "Isle of Man",
-  },
-  {
-    id: "ct-3",
-    title: "South Korea",
-  },
-];
-const STATE_DATA = [
-  {
-    id: "st-1",
-    title: "State 1",
-  },
-  {
-    id: "st-2",
-    title: "State 2",
-  },
-  {
-    id: "st-3",
-    title: "State3",
-  },
-];
 
 /**
  * Drawer() handles size of Drawer and Gesture (flick down).

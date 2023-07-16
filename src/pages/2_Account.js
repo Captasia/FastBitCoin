@@ -77,7 +77,6 @@ export default function Account({ navigation }) {
         {/* TODO: create button */}
         <View
           style={{
-            backgroundColor: "orange",
             justifyContent: "center",
             alignItems: "center",
             whiteSpace: "pre-wrap",

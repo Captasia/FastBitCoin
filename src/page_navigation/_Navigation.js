@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Image } from "react-native";
 
 // import related to react-navigation.
 import { NavigationContainer } from "@react-navigation/native";
@@ -47,7 +48,14 @@ export default function Navigation() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialRoute}>
+      <Stack.Navigator initialRouteName={initialRoute} screenOptions={{
+          headerStyle: {
+            backgroundColor: '#F7F8F7',
+          },
+          headerRight: () => (
+            <Image source={require('../../assets/splashIcon.png')} style={{ width: 20, height: 26, marginRight: 10 }} />
+          )
+        }}>
         <Stack.Screen
           options={{ headerShown: false }}
           name="Home"

@@ -15,7 +15,7 @@ import styles from "../style/styles.js";
  */
 const UserInput = ({ title, children }) => {
   return (
-    <View style={styles.componentHolder}>
+    <View style={styles.inputHolder}>
       <Text style={styles.baseFont}>{title}</Text>
       {children}
     </View>

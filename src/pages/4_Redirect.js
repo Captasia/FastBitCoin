@@ -5,7 +5,7 @@ import styles from "../style/styles.js";
 
 export default function Redirect({navigation}) {
   // Linger here for a bit; if there's something to load, we can take advantage of it
-  const LOAD_DELAY = 2000;
+  const LOAD_DELAY = 3000;
   const [isReady, setReady] = useState(false);
 
   useEffect(() => {

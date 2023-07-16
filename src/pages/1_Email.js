@@ -42,6 +42,7 @@ export default function Email({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Your email address"
+          placeholderTextColor={"#707070"}
           onChangeText={validateEmail}
         />
       </UserInput>

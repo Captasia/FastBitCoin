@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 export default StyleSheet.create({
   // CSS to be used globally.
@@ -6,13 +6,18 @@ export default StyleSheet.create({
   // Could use scss for better handling, but I believe that is out of scope.
   container: {
     flex: 1,
+    backgroundColor: "#F7F8F7",
   },
   componentHolder: {
     padding: 10,
     flex: 1,
   },
+  inputHolder: {
+    padding: 10,
+  },
   bottomAlign: {
     justifyContent: "flex-end",
+    paddingBottom: Platform.OS === "ios" ? 30 : 10,
   },
   centerAlign: {
     justifyContent: "center",
@@ -32,8 +37,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
   },
   input: {
-    height: 40,
-    marginTop: 10,
+    height: 60,
     borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 10,
@@ -61,7 +65,7 @@ export default StyleSheet.create({
   },
   // Button related CSS
   button: {
-    height: 55,
+    height: 70,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -82,21 +86,27 @@ export default StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     bottom: 0,
-    borderWidth: 1,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 3,
+    shadowRadius: 5,
   },
-  grip:{
-    backgroundColor: "gray",
+  grip: {
+    backgroundColor: "#E7E8E9",
     borderRadius: 5,
-    width: 100,
-    height: 10,
+    width: 82,
+    height: 6,
+    marginTop: 15,
   },
   swipeDetect: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: 80,
+    height: 90,
     width: "100%",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
   },
   // Image related CSS
   roundImg: {
@@ -116,15 +126,39 @@ export default StyleSheet.create({
   buttonText: {
     fontWeight: 700,
     fontSize: 18,
-    color: "#111"
+    color: "#111",
   },
   buttonText_inactive: {
-    color: "#999"
+    color: "#999",
   },
   h1: {
     fontWeight: 800,
-    fontSize: 18
+    fontSize: 18,
+  },
+  // OTHERS
+  searchBar: {
+    height: 60,
+    padding: 10,
+    flexDirection: "row",
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  searchBar__container: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "white",
+    marginHorizontal: 20,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  searchBar__input: {
+    fontSize: 20,
+    marginLeft: 10,
+    width: "80%",
+    color: "orange",
   },
 });
 // Notable colors:
-// 
+//
