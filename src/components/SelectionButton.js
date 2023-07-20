@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, TouchableOpacity, View, Image } from "react-native";
+import { Text, TouchableOpacity, View, Image, StyleSheet } from "react-native";
 
 // import CSS
 import styles from "../style/styles.js";
+import global from "../style/global.js";
 
 /**
  * SelectionButton
@@ -12,8 +13,6 @@ import styles from "../style/styles.js";
  * @returns UserInput component
  */
 const SelectionButton = ({ onPress, selectedItem, children }) => {
-  console.log("Selection Button item:");
-  console.log(selectedItem);
   return (
     <TouchableOpacity
       style={{
@@ -25,10 +24,10 @@ const SelectionButton = ({ onPress, selectedItem, children }) => {
       }}
       onPress={onPress}
     >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={{...global.centerAlign, ...global.flexRow}}>
         {selectedItem.imageLink && (
           <Image
-            style={styles.roundImg}
+            style={global.round_image}
             source={{
               uri: selectedItem.imageLink,
             }}
@@ -37,7 +36,7 @@ const SelectionButton = ({ onPress, selectedItem, children }) => {
             width={30}
           />
         )}
-        <Text style={{ ...styles.baseFont, color: "#AAA" }}>
+        <Text style={{ ...global.font_generic, color: "#B7BABC" }}>
           {selectedItem.name}
         </Text>
         {children}

@@ -1,24 +1,20 @@
 import React from "react";
 import { Text, View } from "react-native";
-
-// import AsyncStorage
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import redux
 import { useDispatch } from "react-redux";
-import { clearObject } from "../redux/reducers.js";
-// import CSS
-import styles from "../style/styles.js";
-// import Components
+
 import Button from "../components/Button.js";
+import global from "../style/global.js";
+
 
 export default function Finale({ navigation }) {
+  console.log("Render Finale ----------------------");
   const dispatch = useDispatch();
 
-  const reset = async () => {
-    // TODO: reset token + language
+  const reset = async (navigation, dispatch) => {
     try {
-      await AsyncStorage.clear();
-      dispatch(clearObject);
+      await AsyncStorage.multiRemove(["userToken", "language"]);
+      dispatch(clearObject());
     } catch (err) {
       console.log("Error resetting:", err);
     } finally {
@@ -26,10 +22,11 @@ export default function Finale({ navigation }) {
     }
   };
 
+
   return (
-    <View style={{ ...styles.container, ...styles.centerAlign }}>
-      <Text style={styles.baseFont}> All good! </Text>
-      <Button text={"Reset"} onPress={() => reset()} />
+    <View style={{ ...global.container, ...global.centerAlign }}>
+      <Text style={global.font_generic}> All good! </Text>
+      <Button text="Reset" onPress={() => reset(navigation, dispatch)} />
     </View>
   );
 }

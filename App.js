@@ -18,7 +18,10 @@ import { I18nextProvider } from "react-i18next";
 // i18n imports for translation
 import enTranslations from "./src/locales/en.json"; // English translations
 import krTranslations from "./src/locales/kr.json"; // Korean translations
+
+// asset imports
 import CustomSplashScreen from "./src/components/CustomSplashScreen.js";
+import * as Font from 'expo-font'
 
 // setting urql client
 const API_URL =
@@ -51,14 +54,22 @@ i18next.use(initReactI18next).init({
 export default function App() {
   const [appReady, setAppReady] = useState(false);
   // TODO: change LOAD_DELAY if we want to animate loading screen.
-  const LOAD_DELAY = 10000;
+  const LOAD_DELAY = 2000;
+  const fetchFonts = async () => {
+    await Font.loadAsync({
+      'Poppins': require('./assets/Fonts/Poppins-Regular.ttf'),
+      'Poppins-Medium': require('./assets/Fonts/Poppins-Medium.ttf'),
+      'Poppins-SemiBold': require('./assets/Fonts/Poppins-SemiBold.ttf'),
+      'Poppins-Bold': require('./assets/Fonts/Poppins-Bold.ttf'),
+    })
+  }
 
   // run any preparation required for launching app
   useEffect(() => {
-    console.log("running useEffect -> prepareApp()");
     async function prepareApp() {
       try {
         // Any API calls, or loading for initiation should be done here.
+        await fetchFonts();
         await new Promise((resolve) => setTimeout(resolve, LOAD_DELAY));
       } catch (err) {
         console.log("There has been an error:", err);

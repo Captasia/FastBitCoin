@@ -5,7 +5,7 @@ import {
   Gesture,
   Directions,
 } from "react-native-gesture-handler";
-import styles from "../style/styles.js";
+import global from "../style/global.js";
 
 /**
  * Drawer() handles size of Drawer and Gesture (flick down).
@@ -24,13 +24,13 @@ export default function Drawer({ shouldClose, shouldShow, title, children }) {
       visible={shouldShow} // check if this should be open
       onRequestClose={shouldClose} // request to close
     >
-      <View style={[styles.drawerBody, { height: windowHeight * 0.9 }]}>
-        <View style={{ ...styles.fillWidth, ...styles.flexRow }}>
+      <View style={{...global.drawer_body, height: windowHeight * 0.9 }}>
+        <View style={{ ...global.fillWidth, ...global.flexRow }}>
           {/* Support swipe down gesture from this list*/}
           <GestureDetector gesture={flingGesture}>
-            <View style={styles.swipeDetect}>
-              <View style={styles.grip} />
-              <Text style={styles.h1}>{title}</Text>
+            <View style={global.swipe_area}>
+              <View style={global.grip} />
+              <Text style={global.font_drawer_header}>{title}</Text>
             </View>
           </GestureDetector>
         </View>

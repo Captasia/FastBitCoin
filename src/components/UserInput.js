@@ -5,7 +5,7 @@ import {
   } from "react-native";
 
 // import CSS
-import styles from "../style/styles.js";
+import global from "../style/global.js";
 
 /**
  * UserInput
@@ -15,8 +15,8 @@ import styles from "../style/styles.js";
  */
 const UserInput = ({ title, children }) => {
   return (
-    <View style={styles.inputHolder}>
-      <Text style={styles.baseFont}>{title}</Text>
+    <View style={{...global.inputHolder}}>
+      <Text style={{...global.font_generic, marginBottom: 5}}>{title}</Text>
       {children}
     </View>
   );

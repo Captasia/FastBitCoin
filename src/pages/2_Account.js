@@ -1,15 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import React, { useState } from "react";
+import { Text, View } from "react-native";
 
-import styles from "../style/styles.js";
+import global from "../style/global.js";
+
 import Button from "../components/Button.js";
 import Drawer from "../components/Drawer.js";
 import UserInput from "../components/UserInput.js";
 import SelectionButton from "../components/SelectionButton.js";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateCountry, updateState } from "../redux/reducers.js";
 import SearchableList from "../components/SearchableList.js";
+import Paragraph from "../components/Paragraph.js";
 
 const generateImageLink = (countryCode) => {
   return `https://flagsapi.com/${countryCode}/shiny/64.png`;
@@ -58,6 +60,10 @@ const STATE_LIST = [
 ];
 
 export default function Account({ navigation }) {
+  console.log("Render Account ----------------------");
+  const variables = useSelector((state) => {
+    console.log(state.object);
+    return state.object});
   // ------- TODO: look at which hook I should use to record state
   // 1. state to keep if modal is open or not.
   // 2. state to check if country is selected.
@@ -66,35 +72,23 @@ export default function Account({ navigation }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [drawerContent, setDrawerContent] = useState("");
   const [shouldShowStates, setShouldShowStates] = useState(false);
-  const [countryItem, setCountryItem] = useState({ id: "country-0", name: "Select Country" });
-  const [stateItem, setStateItem] = useState({ id: "state-0", name: "Select State" });
+  const [countryItem, setCountryItem] = useState({
+    id: "country-0",
+    name: "Select Country",
+  });
+  const [stateItem, setStateItem] = useState({
+    id: "state-0",
+    name: "Select State",
+  });
   const dispatch = useDispatch();
 
   // Render Object
   return (
-    <View style={{ ...styles.container, ...styles.split }}>
-      <View style={styles.componentHolder}>
-        {/* TODO: create button */}
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            whiteSpace: "pre-wrap",
-            overflowWrap: "break-word",
-            paddingHorizontal: 40,
-            paddingVertical: 10,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 10,
-              textAlign: "center",
-            }}
-          >
-            You need to select your country for something etc etc hello world
-            banana toupe
-          </Text>
-        </View>
+    <View style={{ ...global.container, ...global.split }}>
+      <Paragraph>
+        Bacon ipsum dolor amet kielbasa filet mignon biltong hamburger tri-tip sirloin.
+      </Paragraph>
+      <View style={global.body}>
         <UserInput title={"What country do you live in?"}>
           <SelectionButton
             selectedItem={countryItem}
@@ -116,12 +110,11 @@ export default function Account({ navigation }) {
           </UserInput>
         )}
       </View>
-      <View style={{ ...styles.componentHolder, ...styles.bottomAlign }}>
+      <View style={{ ...global.body, ...global.bottomAlign }}>
         <Button
-          style={styles.button}
+          style={global.button}
           isActive={true}
           onPress={() => {
-            console.log("Moving to next page");
             dispatch(updateCountry(countryItem.title));
             dispatch(updateState(stateItem.title));
             navigation.navigate("Password");
@@ -136,18 +129,25 @@ export default function Account({ navigation }) {
       >
         <SearchableList
           data={drawerContent === "Country" ? COUNTRY_LIST : STATE_LIST}
+          dataType={drawerContent}
           onSelect={(item) => {
+            console.log("itemSelected:",item)
             if (drawerContent === "Country") {
-              console.log("country item selected:");
-              console.log(item);
               setCountryItem(item);
               if (item.title === "US") {
+                // Reset state Item
+                setStateItem({
+                  id: "state-0",
+                  name: "Select State",
+                })
                 setShouldShowStates(true);
+              } else {
+                // SET same code for STATE with COUNTRY code.
+                setStateItem(item);
+                setShouldShowStates(false);
               }
             } else {
               setStateItem(item);
-              console.log("state item selected");
-              console.log(item);
             }
             setIsDrawerOpen(false);
           }}

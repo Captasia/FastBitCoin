@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import styles from "../style/styles.js";
+import React, { useState } from "react";
+import global from "../style/global.js";
 import {
-  Text,
   View,
   TextInput,
   KeyboardAvoidingView,
@@ -9,20 +8,17 @@ import {
 import Button from "../components/Button.js";
 
 // Import redux / redux actions
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateEmail } from "../redux/reducers.js";
 import UserInput from "../components/UserInput.js";
 
 export default function Email({ navigation }) {
-  // TODO: set isValid back to false
-  // const state = useSelector((state) => {
-  //   console.log("fetching state: ", state);
-  //   return state.object;
-  // });
   const dispatch = useDispatch();
+  const variables = useSelector((state) => {
+    console.log(state.object);
+    return state.object});
   const [email, setEmail] = useState({ email: "", isValid: false });
 
-  // TODO: remove return true
   function isValidEmail(email) {
     const regex =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -35,21 +31,21 @@ export default function Email({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      style={{ ...styles.container, ...styles.split}}
+      style={{ ...global.container, ...global.split, ...global.bg_light}}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={70}
     >
       <UserInput title={"Email"}>
         <TextInput
-          style={styles.input}
+          style={{...global.input, ...global.font_input}}
           placeholder="Your email address"
           placeholderTextColor={"#707070"}
           onChangeText={validateEmail}
         />
       </UserInput>
-      <View style={{ ...styles.componentHolder, ...styles.bottomAlign }}>
+      <View style={{ ...global.body, ...global.bottomAlign }}>
         <Button
-          style={styles.button}
+          style={{...global.button}}
           isActive={email.isValid}
           onPress={() => {
             dispatch(updateEmail(email.email));

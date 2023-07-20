@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 
 // import related to react-navigation.
 import { NavigationContainer } from "@react-navigation/native";
@@ -16,6 +16,8 @@ import Password from "../pages/3_Password";
 import Redirect from "../pages/4_Redirect";
 import Finale from "../pages/5_Finale";
 
+import global_style from "../style/global";
+
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
   const [initialRoute, setInitialRoute] = useState("Home");
@@ -26,11 +28,7 @@ export default function Navigation() {
       try {
         const userToken = await AsyncStorage.getItem("userToken");
         if (userToken !== null) {
-          // if (true){ --- For testing
-          // User has the key, set initial route to finale page.
           setInitialRoute("Finale");
-        }else{
-          console.log("userToken is null");
         }
       } catch (err) {
         console.log("Error fetching AsyncStorage value:", err);
@@ -46,22 +44,42 @@ export default function Navigation() {
     return;
   }
 
+  const screenOptions = ({ navigation }) => ({
+    headerBackTitleVisible: false,
+    headerStyle: {
+      ...global_style.font_stack_nav,
+    },
+    headerRight: () => (
+      <Image
+        source={require("../../assets/splashIcon.png")}
+        style={{ ...global_style.logo_stack_right }}
+        resizeMode="contain"
+      />
+    ),
+    headerLeft: () => (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Image source={require("../../assets/backArrow.png")} />
+      </TouchableOpacity>
+    ),
+  });
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialRoute} screenOptions={{
-          headerStyle: {
-            backgroundColor: '#F7F8F7',
-          },
-          headerRight: () => (
-            <Image source={require('../../assets/splashIcon.png')} style={{ width: 20, height: 26, marginRight: 10 }} />
-          )
-        }}>
+      <Stack.Navigator initialRouteName={initialRoute}>
         <Stack.Screen
           options={{ headerShown: false }}
           name="Home"
           component={Main}
         />
-        <Stack.Screen name="Enter your email address" component={Email} />
+        <Stack.Screen
+          options={screenOptions}
+          name="Enter your email address"
+          component={Email}
+        />
         <Stack.Screen name="Your new account" component={Account} />
         <Stack.Screen name="Password" component={Password} />
         <Stack.Screen

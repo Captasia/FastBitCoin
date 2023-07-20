@@ -8,36 +8,38 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import global from "../style/global";
+
 // display selectable item.
-const ListItem = ({ item, onPress }) => (
+const ListItem = ({ item, itemType, onPress }) => (
   <TouchableOpacity
     activeOpacity={0.6}
     underlayColor="#DDDDDD"
     onPress={(item) => onPress(item)}
   >
     <View style={styles.item}>
-      <Image
-        style={styles.roundImg}
+      {itemType === "Country" && <Image
+        style={global.round_image}
         source={{
           uri: item.imageLink,
         }}
-        height={60}
-        width={60}
-      />
-      <Text>{item.name}</Text>
+        height={24}
+        width={24}
+      />}
+      <Text style={global.font_drawer_generic}>{item.name}</Text>
     </View>
   </TouchableOpacity>
 );
 
 // display array of selectable items
-const List = ({ data, onSelect }) => {
+const List = ({ data, dataType, onSelect }) => {
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.itemContainer}
         data={data}
         renderItem={({ item }) => {
-          return <ListItem item={item} onPress={() => onSelect(item)} />;
+          return <ListItem item={item} itemType={dataType} onPress={() => onSelect(item)} />;
         }}
         keyExtractor={(item) => item.id}
       />
@@ -65,12 +67,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#E7E8E9",
-  },
-  roundImg: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: "white",
-    marginRight: 10,
   },
 });

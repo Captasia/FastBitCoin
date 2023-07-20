@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const loginState = {
   email: '',
   country: '',
-  state: null,
+  state: 'N/A',
   password: '',
   passwordConfirm: '',
 };

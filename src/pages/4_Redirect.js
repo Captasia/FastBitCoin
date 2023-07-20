@@ -9,7 +9,6 @@ export default function Redirect({navigation}) {
   const [isReady, setReady] = useState(false);
 
   useEffect(() => {
-    console.log("running useEffect -> prepareApp()");
     async function prepareMain() {
       try {
         await new Promise((resolve) => setTimeout(resolve, LOAD_DELAY));

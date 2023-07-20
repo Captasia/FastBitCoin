@@ -11,7 +11,7 @@ import SearchBar from "./SearchBar";
  * 2. List data - filter based on search query.
  * @param {data = [{id , title, name, imageLink}]}
  **/
-export default function SearchableList({ data, onSelect }) {
+export default function SearchableList({ data, dataType, onSelect }) {
   const [searchParam, setSearchParam] = useState("");
   // items will never get mutated
   const [items, _] = useState(data);
@@ -28,7 +28,7 @@ export default function SearchableList({ data, onSelect }) {
         searchPhrase={searchParam}
         onSearchPhraseChange={setSearchParam}
       />
-      <List onSelect={(item) => onSelect(item)} data={filteredItems} />
+      <List data={filteredItems} dataType={dataType} onSelect={(item) => onSelect(item)} />
     </View>
   );
 }
