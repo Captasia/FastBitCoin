@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { View, TextInput, KeyboardAvoidingView, Keyboard } from "react-native";
 import Button from "../components/Button";
-import styles from "../style/styles.js";
 import { useMutation, gql } from "@apollo/client";
 import { useSelector, useDispatch } from "react-redux";
 import UserInput from "../components/UserInput";
@@ -11,7 +10,10 @@ import { updatePassword, updatePasswordConfirm } from "../redux/reducers";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import global from "../style/global.js";
 import Paragraph from "../components/Paragraph";
-import { GestureHandlerRootView ,TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 
 const LOGIN_USER = gql`
   mutation LoginUser(
@@ -93,7 +95,7 @@ export default function Password({ navigation }) {
         >
           <View
             style={{
-              ...styles.body,
+              ...global.body,
               flex: 1,
               justifyContent: "flex-start",
             }}

@@ -2,7 +2,6 @@ import React from "react";
 import { Text, TouchableOpacity, View, Image, StyleSheet } from "react-native";
 
 // import CSS
-import styles from "../style/styles.js";
 import global from "../style/global.js";
 
 /**
@@ -16,7 +15,7 @@ const SelectionButton = ({ onPress, selectedItem, children }) => {
   return (
     <TouchableOpacity
       style={{
-        ...styles.input,
+        ...global.input,
         borderColor: "#DDD",
         justifyContent: "space-between",
         flexDirection: "row",
@@ -43,7 +42,7 @@ const SelectionButton = ({ onPress, selectedItem, children }) => {
       </View>
       <View
         style={{
-          ...styles.centerAlign,
+          ...global.centerAlign,
           width: 30,
           height: 30,
         }}

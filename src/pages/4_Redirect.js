@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Image } from "react-native";
-
-import styles from "../style/styles.js";
 import global from "../style/global.js";
 
 export default function Redirect({ navigation }) {
@@ -29,10 +27,10 @@ export default function Redirect({ navigation }) {
 
   return (
     <View
-      style={{ ...global.container, ...styles.centerAlign, ...global.bg_light }}
+      style={{ ...global.container, ...global.centerAlign, ...global.bg_light }}
     >
       <Image
-        style={styles.roundImg}
+        style={global.logo_holder}
         source={{
           uri: "https://static.vecteezy.com/system/resources/previews/006/900/704/original/green-tick-checkbox-illustration-isolated-on-white-background-free-vector.jpg",
         }}
