@@ -31,7 +31,7 @@ const objectSlice = createSlice({
       state.passwordConfirm = action.payload
     },
     clearObject: () => {
-      return initialState;
+      return loginState;
     },
   },
 });

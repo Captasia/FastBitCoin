@@ -1,4 +1,15 @@
 import { StyleSheet, Platform } from "react-native";
+import {Dimensions} from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
+
+// Figma expectation
+const baseWidth = 414;
+
+// We set offset multiplier for resizing font size.
+// We can also set offset multiplier for height if needed.
+const widthOffset = screenWidth / baseWidth;
+
 
 // Color constants
 const DARK = "#101820";
@@ -6,10 +17,8 @@ const LIGHT = "#F7F8F7";
 const ORANGE = "#FFB81C";
 const BUTTON_INACTIVE = "#E7E8E9";
 const FONT_INACTIVE = "#CFD1D2";
-const GENERIC = "#707070";
 // less generic Color constants
 const DRAWER_BG = "white";
-const DRAWER_TITLE = "black";
 const DRAWER_GRIP = "#E7E8E9";
 // very specifc constants
 const LOGO_PLACEHOLDER = "#C4C4C4";
@@ -110,42 +119,42 @@ export default StyleSheet.create({
   font_header: {
     fontFamily: poppins[700],
     fontWeight:700,
-    fontSize: 32,
+    fontSize: 32 * widthOffset,
   },
   font_generic: {
     fontFamily: poppins[400],
     fontWeight:400,
-    fontSize: 14,
+    fontSize: 14 * widthOffset,
   },
   font_stack_nav: {
     fontFamily: poppins[600],
     fontWeight:600,
-    fontSize: 18,
+    fontSize: 18 * widthOffset,
   },
   font_button: {
     fontFamily: poppins[600],
     fontWeight:600,
-    fontSize: 21,
+    fontSize: 21 * widthOffset,
   },
   font_drawer_header: {
     fontFamily: poppins[600],
     fontWeight:600,
-    fontSize: 18,
+    fontSize: 18 * widthOffset,
   },
   font_drawer_generic: {
     fontFamily: poppins[700],
     fontWeight:700,
-    fontSize: 18,
+    fontSize: 18 * widthOffset,
   },
   font_input: {
     fontFamily: poppins[500],
     fontWeight:500,
-    fontSize: 16,
+    fontSize: 16 * widthOffset,
   },
   font_input: {
     fontFamily: poppins[400],
     fontWeight:400,
-    fontSize: 18,
+    fontSize: 18 * widthOffset,
   },
   //#endregion
   //#region IMAGE RELATED
@@ -227,20 +236,7 @@ export default StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  // Font related CSS
-  baseFont: {
-    fontWeight: 500,
-    fontSize: 14,
-    padding: 5,
-  },
-  dropdownHeaderFont: {
-    color: "orange",
-    fontWeight: 800,
-    fontSize: 30,
-  },
-  h1: {
-    fontWeight: 800,
-    fontSize: 18,
-  },
-  // OTHERS
+  keyboard_dismisser:{
+    height: 270,
+  }
 });

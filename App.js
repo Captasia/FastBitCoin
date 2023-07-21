@@ -1,6 +1,5 @@
 // import basic functions related to react / react-native.
-import React, { useCallback, useEffect, useState } from "react";
-import { SafeAreaView, StatusBar } from "react-native";
+import React, { useEffect, useState } from "react";
 
 // import redux
 import { Provider } from "react-redux";
@@ -21,7 +20,7 @@ import krTranslations from "./src/locales/kr.json"; // Korean translations
 
 // asset imports
 import CustomSplashScreen from "./src/components/CustomSplashScreen.js";
-import * as Font from 'expo-font'
+import * as Font from "expo-font";
 
 // setting urql client
 const API_URL =
@@ -57,12 +56,12 @@ export default function App() {
   const LOAD_DELAY = 2000;
   const fetchFonts = async () => {
     await Font.loadAsync({
-      'Poppins': require('./assets/Fonts/Poppins-Regular.ttf'),
-      'Poppins-Medium': require('./assets/Fonts/Poppins-Medium.ttf'),
-      'Poppins-SemiBold': require('./assets/Fonts/Poppins-SemiBold.ttf'),
-      'Poppins-Bold': require('./assets/Fonts/Poppins-Bold.ttf'),
-    })
-  }
+      Poppins: require("./assets/Fonts/Poppins-Regular.ttf"),
+      "Poppins-Medium": require("./assets/Fonts/Poppins-Medium.ttf"),
+      "Poppins-SemiBold": require("./assets/Fonts/Poppins-SemiBold.ttf"),
+      "Poppins-Bold": require("./assets/Fonts/Poppins-Bold.ttf"),
+    });
+  };
 
   // run any preparation required for launching app
   useEffect(() => {
@@ -82,17 +81,14 @@ export default function App() {
   }, []);
 
   if (!appReady) {
-    return <CustomSplashScreen />
+    return <CustomSplashScreen />;
   }
 
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
         <I18nextProvider i18n={i18next}>
-          {/* <StatusBar backgroundColor="blue" barStyle="light-content"/> */}
-          {/* <SafeAreaView style={{ flex: 1 }}> */}
-            <Navigation /> 
-          {/* </SafeAreaView> */}
+          <Navigation />
         </I18nextProvider>
       </Provider>
     </ApolloProvider>

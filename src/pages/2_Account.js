@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import { Text, View } from "react-native";
+import React, { useState, useCallback } from "react";
+import { View } from "react-native";
 
 import global from "../style/global.js";
+
+import {
+  GestureHandlerRootView
+} from "react-native-gesture-handler";
 
 import Button from "../components/Button.js";
 import Drawer from "../components/Drawer.js";
 import UserInput from "../components/UserInput.js";
 import SelectionButton from "../components/SelectionButton.js";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateCountry, updateState } from "../redux/reducers.js";
 import SearchableList from "../components/SearchableList.js";
 import Paragraph from "../components/Paragraph.js";
@@ -60,15 +64,7 @@ const STATE_LIST = [
 ];
 
 export default function Account({ navigation }) {
-  console.log("Render Account ----------------------");
-  const variables = useSelector((state) => {
-    console.log(state.object);
-    return state.object});
-  // ------- TODO: look at which hook I should use to record state
-  // 1. state to keep if modal is open or not.
-  // 2. state to check if country is selected.
-  // 3. state to check if "STATE" should be selected.
-  // 4. state to check if (3) and state is selected.
+  console.log("rendering account...")
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [drawerContent, setDrawerContent] = useState("");
   const [shouldShowStates, setShouldShowStates] = useState(false);
@@ -82,9 +78,44 @@ export default function Account({ navigation }) {
   });
   const dispatch = useDispatch();
 
+  const handleCountryPress = useCallback(() => {
+    setIsDrawerOpen(true);
+    setDrawerContent("Country");
+  }, []);
+
+  const handleStatePress = useCallback(() => {
+    setIsDrawerOpen(true);
+    setDrawerContent("State");
+  }, []);
+
+  const handleSelectItem = useCallback(
+    (item) => {
+      if (drawerContent === "Country") {
+        setCountryItem(item);
+        if (item.title === "US") {
+          setStateItem({
+            id: "state-0",
+            name: "Select State",
+          })
+          setShouldShowStates(true);
+        } else {
+          // SET same code for STATE with COUNTRY code.
+          setStateItem(item);
+          setShouldShowStates(false);
+        }
+      } else {
+        setStateItem(item);
+      }
+      setIsDrawerOpen(false);
+    },
+    [drawerContent]
+  );
+
+
   // Render Object
   return (
-    <View style={{ ...global.container, ...global.split }}>
+  <GestureHandlerRootView style={{ ...global.container }}>
+    <View style={{ ...global.container, ...global.split, ...global.bg_light }}>
       <Paragraph>
         Bacon ipsum dolor amet kielbasa filet mignon biltong hamburger tri-tip sirloin.
       </Paragraph>
@@ -92,20 +123,14 @@ export default function Account({ navigation }) {
         <UserInput title={"What country do you live in?"}>
           <SelectionButton
             selectedItem={countryItem}
-            onPress={() => {
-              setIsDrawerOpen(true);
-              setDrawerContent("Country");
-            }}
+            onPress={handleCountryPress}
           />
         </UserInput>
         {shouldShowStates && (
           <UserInput title={"What state do you live in?"}>
             <SelectionButton
               selectedItem={stateItem}
-              onPress={() => {
-                setIsDrawerOpen(true);
-                setDrawerContent("State");
-              }}
+              onPress={handleStatePress}
             />
           </UserInput>
         )}
@@ -130,29 +155,10 @@ export default function Account({ navigation }) {
         <SearchableList
           data={drawerContent === "Country" ? COUNTRY_LIST : STATE_LIST}
           dataType={drawerContent}
-          onSelect={(item) => {
-            console.log("itemSelected:",item)
-            if (drawerContent === "Country") {
-              setCountryItem(item);
-              if (item.title === "US") {
-                // Reset state Item
-                setStateItem({
-                  id: "state-0",
-                  name: "Select State",
-                })
-                setShouldShowStates(true);
-              } else {
-                // SET same code for STATE with COUNTRY code.
-                setStateItem(item);
-                setShouldShowStates(false);
-              }
-            } else {
-              setStateItem(item);
-            }
-            setIsDrawerOpen(false);
-          }}
+          onSelect={handleSelectItem}
         />
       </Drawer>
     </View>
+  </GestureHandlerRootView>
   );
 }

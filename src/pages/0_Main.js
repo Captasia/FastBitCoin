@@ -17,26 +17,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import 'intl-pluralrules';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from "react-redux";
 
 export default function Main({ navigation }) {
-  console.log("rendering Main");
-  const variables = useSelector((state) => {
-    console.log(state.object);
-    return state.object});
+  
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  // TODO: think about loading pre-saved language.
   const [language, setLanguage] = useState('');
-
 
   const handleLanguageChange = (language) => {
     i18next.changeLanguage(language).then(() => storeLanguage(language));
   }
+
   const storeLanguage = async (language) => {
     try {
       await AsyncStorage.setItem('language', language);
-      console.log("language stored!");
     } catch (error) {
       console.log("there was a problem setting the language:", error);
     }
@@ -55,6 +49,12 @@ export default function Main({ navigation }) {
           <DropDownPicker
             open={open}
             value={language}
+            defaultIndex={0}
+            placeholder="Select a language"
+            textStyle={{...global.font_generic}}
+            containerStyle={{ borderWidth: 1, borderColor: "white", borderRadius: 3}}
+            dropDownContainerStyle={{...global.bg_dark, borderWidth: 1, borderColor: "white", borderRadius: 3}}
+            style={{...global.bg_dark }}
             items={[
               { label: "English", value: "en" },
               { label: "Korean", value: "kr" },
@@ -64,7 +64,6 @@ export default function Main({ navigation }) {
               setLanguage(item.value);
               handleLanguageChange(item.value);
             }}
-            defaultIndex={0}
             theme="DARK"
           />
         </View>

@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import global from "../style/global.js";
 import {
   View,
   TextInput,
+  Keyboard,
   KeyboardAvoidingView,
+  StatusBar
 } from "react-native";
+
 import Button from "../components/Button.js";
 
 // Import redux / redux actions
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateEmail } from "../redux/reducers.js";
 import UserInput from "../components/UserInput.js";
 
 export default function Email({ navigation }) {
   const dispatch = useDispatch();
-  const variables = useSelector((state) => {
-    console.log(state.object);
-    return state.object});
   const [email, setEmail] = useState({ email: "", isValid: false });
+
+  useLayoutEffect(() => {
+  StatusBar.setBarStyle("dark-content");
+  },[])
 
   function isValidEmail(email) {
     const regex =
@@ -40,6 +44,9 @@ export default function Email({ navigation }) {
           style={{...global.input, ...global.font_input}}
           placeholder="Your email address"
           placeholderTextColor={"#707070"}
+          onBlur={() => Keyboard.dismiss()}
+          autoCapitalize="none"
+          keyboardType="email-address"
           onChangeText={validateEmail}
         />
       </UserInput>

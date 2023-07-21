@@ -24,15 +24,15 @@ export default function Drawer({ shouldClose, shouldShow, title, children }) {
       visible={shouldShow} // check if this should be open
       onRequestClose={shouldClose} // request to close
     >
-      <View style={{...global.drawer_body, height: windowHeight * 0.9 }}>
+      <View style={{ ...global.drawer_body, height: windowHeight * 0.9 }}>
         <View style={{ ...global.fillWidth, ...global.flexRow }}>
           {/* Support swipe down gesture from this list*/}
-          <GestureDetector gesture={flingGesture}>
-            <View style={global.swipe_area}>
-              <View style={global.grip} />
-              <Text style={global.font_drawer_header}>{title}</Text>
-            </View>
-          </GestureDetector>
+            <GestureDetector gesture={flingGesture}>
+              <View style={global.swipe_area}>
+                <View style={global.grip} />
+                <Text style={global.font_drawer_header}>{title}</Text>
+              </View>
+            </GestureDetector>
         </View>
         {children}
       </View>

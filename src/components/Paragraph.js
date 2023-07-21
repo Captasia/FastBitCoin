@@ -1,13 +1,13 @@
 import React from "react";
 import { Text, View } from "react-native";
 // import styles from "../style/styles.js";
-import global_style from "../style/global.js";
+import global from "../style/global.js";
 
 export default function Paragraph({ children }) {
   return (
     <View
     style={{
-      ...global_style.centerAlign,
+      ...global.centerAlign,
       whiteSpace: "pre-wrap",
       overflowWrap: "break-word",
       paddingHorizontal: 40,
@@ -17,8 +17,8 @@ export default function Paragraph({ children }) {
   >
     <Text
       style={{
-        ...global_style.font_generic,
-        ...global_style.fc_basic,
+        ...global.font_generic,
+        ...global.fc_basic,
         textAlign: "center",
       }}
     >
