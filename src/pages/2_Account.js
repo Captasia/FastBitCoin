@@ -3,9 +3,7 @@ import { View } from "react-native";
 
 import global from "../style/global.js";
 
-import {
-  GestureHandlerRootView
-} from "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Button from "../components/Button.js";
 import Drawer from "../components/Drawer.js";
@@ -64,7 +62,7 @@ const STATE_LIST = [
 ];
 
 export default function Account({ navigation }) {
-  console.log("rendering account...")
+  console.log("rendering account...");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [drawerContent, setDrawerContent] = useState("");
   const [shouldShowStates, setShouldShowStates] = useState(false);
@@ -96,7 +94,7 @@ export default function Account({ navigation }) {
           setStateItem({
             id: "state-0",
             name: "Select State",
-          })
+          });
           setShouldShowStates(true);
         } else {
           // SET same code for STATE with COUNTRY code.
@@ -111,54 +109,56 @@ export default function Account({ navigation }) {
     [drawerContent]
   );
 
-
   // Render Object
   return (
-  <GestureHandlerRootView style={{ ...global.container }}>
-    <View style={{ ...global.container, ...global.split, ...global.bg_light }}>
-      <Paragraph>
-        Bacon ipsum dolor amet kielbasa filet mignon biltong hamburger tri-tip sirloin.
-      </Paragraph>
-      <View style={global.body}>
-        <UserInput title={"What country do you live in?"}>
-          <SelectionButton
-            selectedItem={countryItem}
-            onPress={handleCountryPress}
-          />
-        </UserInput>
-        {shouldShowStates && (
-          <UserInput title={"What state do you live in?"}>
+    <GestureHandlerRootView style={{ ...global.container }}>
+      <View
+        style={{ ...global.container, ...global.split, ...global.bg_light }}
+      >
+        <Paragraph>
+          Bacon ipsum dolor amet kielbasa filet mignon biltong hamburger tri-tip
+          sirloin.
+        </Paragraph>
+        <View style={global.body}>
+          <UserInput title={"What country do you live in?"}>
             <SelectionButton
-              selectedItem={stateItem}
-              onPress={handleStatePress}
+              selectedItem={countryItem}
+              onPress={handleCountryPress}
             />
           </UserInput>
-        )}
+          {shouldShowStates && (
+            <UserInput title={"What state do you live in?"}>
+              <SelectionButton
+                selectedItem={stateItem}
+                onPress={handleStatePress}
+              />
+            </UserInput>
+          )}
+        </View>
+        <View style={{ ...global.body, ...global.bottomAlign }}>
+          <Button
+            style={global.button}
+            isActive={true}
+            onPress={() => {
+              dispatch(updateCountry(countryItem.title));
+              dispatch(updateState(stateItem.title));
+              navigation.navigate("Password");
+            }}
+            text={"Continue"}
+          />
+        </View>
+        <Drawer
+          shouldClose={() => setIsDrawerOpen(false)}
+          shouldShow={isDrawerOpen}
+          title={drawerContent}
+        >
+          <SearchableList
+            data={drawerContent === "Country" ? COUNTRY_LIST : STATE_LIST}
+            dataType={drawerContent}
+            onSelect={handleSelectItem}
+          />
+        </Drawer>
       </View>
-      <View style={{ ...global.body, ...global.bottomAlign }}>
-        <Button
-          style={global.button}
-          isActive={true}
-          onPress={() => {
-            dispatch(updateCountry(countryItem.title));
-            dispatch(updateState(stateItem.title));
-            navigation.navigate("Password");
-          }}
-          text={"Continue"}
-        />
-      </View>
-      <Drawer
-        shouldClose={() => setIsDrawerOpen(false)}
-        shouldShow={isDrawerOpen}
-        title={drawerContent}
-      >
-        <SearchableList
-          data={drawerContent === "Country" ? COUNTRY_LIST : STATE_LIST}
-          dataType={drawerContent}
-          onSelect={handleSelectItem}
-        />
-      </Drawer>
-    </View>
-  </GestureHandlerRootView>
+    </GestureHandlerRootView>
   );
 }

@@ -25,7 +25,9 @@ export default function Finale({ navigation }) {
   return (
     <View style={{ ...global.container }}>
       <View style={{ ...global.body, ...global.bottomAlign }}>
-        <Text style={{ ...global.font_header, ...global.fc_basic}}> All good! </Text>
+        <Text style={{ ...global.font_header, ...global.fc_basic }}>
+          All good!
+        </Text>
       </View>
       <View style={{ ...global.body }}>
         <Button text="Reset" onPress={() => reset(navigation, dispatch)} />

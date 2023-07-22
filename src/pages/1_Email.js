@@ -31,7 +31,6 @@ export default function Email({ navigation }) {
     setEmail({ isValid: isValidEmail(text), email: text });
   };
 
-  console.log("Email Returning...");
   return (
     <KeyboardAvoidingView
       style={{
@@ -42,7 +41,13 @@ export default function Email({ navigation }) {
       keyboardVerticalOffset={70}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={{ ...global.body, justifyContent: "space-between", paddingBottom: 50 }}>
+        <View
+          style={{
+            ...global.body,
+            justifyContent: "space-between",
+            paddingBottom: 50,
+          }}
+        >
           <UserInput title={"Email"}>
             <TextInput
               style={{ ...global.input, ...global.font_input }}
