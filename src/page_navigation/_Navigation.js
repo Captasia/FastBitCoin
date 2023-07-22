@@ -49,7 +49,8 @@ export default function Navigation() {
 
   const screenOptions = ({ navigation }) => ({
     headerBackTitleVisible: false,
-    headerStyle: {
+    headerTitleAlign: "center",
+    headerTitleStyle: {
       ...global.font_stack_nav,
     },
     headerRight: () => (

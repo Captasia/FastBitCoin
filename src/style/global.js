@@ -2,6 +2,7 @@ import { StyleSheet, Platform } from "react-native";
 import {Dimensions} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 // Figma expectation
 const baseWidth = 414;
@@ -26,16 +27,11 @@ const DROPDOWN_ARROW = "#999999";
 
 
 // Custom font "Poppins"
-const poppins = Platform.OS === "ios" ? {
+const poppins = {
     400: "Poppins",
     500: "Poppins-Medium",
     600: "Poppins-SemiBold",
     700: "Poppins-Bold"
-}: {
-    400: "Poppins",
-    500: "Poppins",
-    600: "Poppins",
-    700: "Poppins",
 }
 
 export default StyleSheet.create({
@@ -118,42 +114,37 @@ export default StyleSheet.create({
   //////////////// Font Styles
   font_header: {
     fontFamily: poppins[700],
-    fontWeight:700,
+    fontWeight:"700",
     fontSize: 32 * widthOffset,
   },
   font_generic: {
     fontFamily: poppins[400],
-    fontWeight:400,
+    fontWeight:"400",
     fontSize: 14 * widthOffset,
   },
   font_stack_nav: {
     fontFamily: poppins[600],
-    fontWeight:600,
+    fontWeight:"600",
     fontSize: 18 * widthOffset,
   },
   font_button: {
     fontFamily: poppins[600],
-    fontWeight:600,
+    fontWeight:"600",
     fontSize: 21 * widthOffset,
   },
   font_drawer_header: {
     fontFamily: poppins[600],
-    fontWeight:600,
+    fontWeight:"600",
     fontSize: 18 * widthOffset,
   },
   font_drawer_generic: {
     fontFamily: poppins[700],
-    fontWeight:700,
+    fontWeight:"700",
     fontSize: 18 * widthOffset,
   },
   font_input: {
-    fontFamily: poppins[500],
-    fontWeight:500,
-    fontSize: 16 * widthOffset,
-  },
-  font_input: {
     fontFamily: poppins[400],
-    fontWeight:400,
+    fontWeight:"400",
     fontSize: 18 * widthOffset,
   },
   //#endregion
@@ -237,6 +228,6 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   keyboard_dismisser:{
-    height: 270,
+    height: screenHeight/2,
   }
 });

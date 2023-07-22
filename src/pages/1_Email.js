@@ -5,7 +5,9 @@ import {
   TextInput,
   Keyboard,
   KeyboardAvoidingView,
-  StatusBar
+  StatusBar,
+  Platform,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 import Button from "../components/Button.js";
@@ -19,10 +21,6 @@ export default function Email({ navigation }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState({ email: "", isValid: false });
 
-  useLayoutEffect(() => {
-  StatusBar.setBarStyle("dark-content");
-  },[])
-
   function isValidEmail(email) {
     const regex =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -33,34 +31,39 @@ export default function Email({ navigation }) {
     setEmail({ isValid: isValidEmail(text), email: text });
   };
 
+  console.log("Email Returning...");
   return (
     <KeyboardAvoidingView
-      style={{ ...global.container, ...global.split, ...global.bg_light}}
+      style={{
+        ...global.container,
+        ...global.bg_light,
+      }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={70}
     >
-      <UserInput title={"Email"}>
-        <TextInput
-          style={{...global.input, ...global.font_input}}
-          placeholder="Your email address"
-          placeholderTextColor={"#707070"}
-          onBlur={() => Keyboard.dismiss()}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          onChangeText={validateEmail}
-        />
-      </UserInput>
-      <View style={{ ...global.body, ...global.bottomAlign }}>
-        <Button
-          style={{...global.button}}
-          isActive={email.isValid}
-          onPress={() => {
-            dispatch(updateEmail(email.email));
-            navigation.navigate("Your new account");
-          }}
-          text={"Continue"}
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={{ ...global.body, justifyContent: "space-between", paddingBottom: 50 }}>
+          <UserInput title={"Email"}>
+            <TextInput
+              style={{ ...global.input, ...global.font_input }}
+              placeholder="Your email address"
+              placeholderTextColor={"#707070"}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              onChangeText={validateEmail}
+            />
+          </UserInput>
+          <Button
+            style={{ ...global.button }}
+            isActive={email.isValid}
+            onPress={() => {
+              dispatch(updateEmail(email.email));
+              navigation.navigate("Your new account");
+            }}
+            text={"Continue"}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 }

@@ -31,6 +31,7 @@ export default function Main({ navigation }) {
   const storeLanguage = async (language) => {
     try {
       await AsyncStorage.setItem('language', language);
+      // console.log("Ignore AsyncStorage");
     } catch (error) {
       console.log("there was a problem setting the language:", error);
     }

@@ -1,5 +1,11 @@
 import React, { useState, useCallback } from "react";
-import { View, TextInput, KeyboardAvoidingView, Keyboard } from "react-native";
+import {
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Button from "../components/Button";
 import { useMutation, gql } from "@apollo/client";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,10 +16,6 @@ import { updatePassword, updatePasswordConfirm } from "../redux/reducers";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import global from "../style/global.js";
 import Paragraph from "../components/Paragraph";
-import {
-  GestureHandlerRootView,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
 
 const LOGIN_USER = gql`
   mutation LoginUser(
@@ -79,25 +81,26 @@ export default function Password({ navigation }) {
   );
 
   return (
-    <GestureHandlerRootView style={{ ...global.container }}>
-      <KeyboardAvoidingView
-        style={{ ...global.container, ...global.split, ...global.bg_light }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={70}
-      >
-        <Paragraph>
-          Bacon ipsum dolor amet kielbasa filet mignon biltong hamburger tri-tip
-          sirloin.
-        </Paragraph>
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}
-          style={{ ...global.keyboard_dismisser }}
+    <KeyboardAvoidingView
+      style={{
+        ...global.container,
+        ...global.bg_light,
+      }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={70}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View
+          style={{
+            ...global.body,
+            justifyContent: "space-between",
+            paddingBottom: 50,
+          }}
         >
           <View
             style={{
-              ...global.body,
-              flex: 1,
               justifyContent: "flex-start",
+              height: 250,
             }}
           >
             <UserInput title={"Password"}>
@@ -119,16 +122,13 @@ export default function Password({ navigation }) {
               />
             </UserInput>
           </View>
-        </TouchableWithoutFeedback>
-        <View style={{ ...global.body, ...global.bottomAlign }}>
-          {/* Password must be filled */}
           <Button
             isActive={password !== "" && passwordConfirm !== ""}
             onPress={handleLogin}
             text={"Continue"}
           />
         </View>
-      </KeyboardAvoidingView>
-    </GestureHandlerRootView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
