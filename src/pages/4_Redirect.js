@@ -5,7 +5,6 @@ import global from "../style/global.js";
 export default function Redirect({ navigation }) {
   // Linger here for a bit; if there's something to load, we can take advantage of it
   const LOAD_DELAY = 3000;
-  const [isReady, setReady] = useState(false);
 
   useEffect(() => {
     async function prepareMain() {
@@ -14,16 +13,11 @@ export default function Redirect({ navigation }) {
       } catch (err) {
         console.log("There has been an error:", err);
       } finally {
-        setReady(true);
+        navigation.navigate("Finale");
       }
     }
     prepareMain();
-  }, [isReady]);
-
-  if (isReady) {
-    // Alls good to go, move to Finale.
-    navigation.navigate("Finale");
-  }
+  }, []);
 
   return (
     <View
